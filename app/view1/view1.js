@@ -11,43 +11,47 @@ angular.module('myApp.view1', ['ngRoute','myApp.view1.general-property-directive
   });
 }])
 
-.controller('View1Ctrl', ['$scope', function($scope) {
+.controller('View1Ctrl', ['$scope', '$http', function($scope, $http) {
 	$scope.generalProperty = {name: "name", method: "method", description: "description"};
-	$scope.methodProperty = {instrument: {portfolio: "portfolio"}};
+	$scope.methodProperty = {instrument: {portfolio: "portfolio",
+										  asOfDate: "12/15/2014"},
+							 pricing: 	 {IM: "IM1",
+										  priceDate: "12/15/2014",
+										  reportCurrency: "USD"},
+							 scenario: 	 {scenSet: "My Scenario",
+										  baseline: "Baseline" }};
 	$scope.thirdLvl = "value";
-	$scope.test = {t1: '1',
-				   t2: 't2'};
-	$scope.myVar = "myVar";
 	
-	$scope.setDeleteToFalse = function () {
-		$scope.isDeleteSimDialogOpen  = false;
-	}	
-	
-	$scope.isDeleteSimDialogOpen = false;
-	$scope.deleteSimDialogMessage = "Are you sure you wish to delete this simulation?";
-	
-	$scope.isClearSimDialogOpen = false;
-	$scope.clearSimDialogMessage = "Are you sure you wish to clear all fields from this simulation?";
+	$scope.deleteButton = { isOpen : false,
+						   deleteSimDialogMessage : "Are you sure you wish to delete this simulation?",
+						   onOkCallback: function () {
+								alert ("ok callback");
+								$scope.deleteButton.isOpen = false;					   
+						   },
+						   onCloseCallback: function() {
+								alert ("Close callback");
+								$scope.deleteButton.isOpen  = false;					   
+						   }}				   
+						   
+	$scope.clearAllButton = { isOpen : false,
+							  clearSimDialogMessage : "Are you sure you wish to clear all fields from this simulation?",
+							  onOkCallback: function () {
+									angular.forEach($scope.generalProperty,function (value, key) {
+										$scope.generalProperty[key] = "";
+									});
+									angular.forEach($scope.methodProperty,function (value, key) {
+										$scope.methodProperty[key] = "";
+									});
+									$scope.thirdLvl = "";
+									$scope.clearAllButton.isOpen = false;				   
+							   },
+							  onCloseCallback: function() {
+									alert ("Close callback");
+									$scope.clearAllButton.isOpen  = false;					   
+							}}							
 	
 	$scope.openDialog = function (isDialogOpenControl) {		
-		$scope[isDialogOpenControl] = true;
-	}
-	$scope.onOkCallback = function () {
-		alert ("ok callback");
-		$scope.isDeleteSimDialogOpen = false;
-	}
-	$scope.onCloseCallback = function () {
-		alert ("Close callback");
-		$scope.isDeleteSimDialogOpen  = false;
-	}
-	$scope.onOkClearCallback = function () {
-		angular.forEach($scope.generalProperty,function (value, key) {
-			$scope.generalProperty[key] = "";
-		});
-		$scope.isClearSimDialogOpen = false;
-	}
-	$scope.onCancelClearCallback = function () {
-		$scope.isClearSimDialogOpen = false;
+		$scope[isDialogOpenControl].isOpen = true;
 	}
 	
 	$scope.enableClose = true;

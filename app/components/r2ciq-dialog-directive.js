@@ -5,12 +5,14 @@ angular.module ('myApp.r2ciq-dialog-directive', [])
 .directive('r2Dialog', function ($timeout) {
 	return {
 		restrict: 'E',
+		replace: false,
+		transclude: true,
+		template: '<div ng-transclude></div>',
 		scope: {
             okButton: '@',
             okCallback: '=',
             cancelButton: '@',
             cancelCallback: '=',
-		//	position: '@',
             open: '@',
             title: '@',
             width: '@',
@@ -23,34 +25,22 @@ angular.module ('myApp.r2ciq-dialog-directive', [])
 			modal: '@',
 			draggable: '@',
 			buttons: '@',
-			setClose: '='
-			
+			setClose: '='			
 		},
-		replace: false,
-		transclude: true,
-		template: '<div ng-transclude></div>',
 		controller: function ($scope, $element) {
-			var hideCloseButton = $scope.hideCloseButton || true;
-			
+			var hideCloseButton = $scope.hideCloseButton || true;			
 			++dialogNumber;
-			var dialogClass = 'r2-dialog-' + dialogNumber;
-			
-			var defaults = {
-				closeDialogAfterCallbacks: true
-			};
-			
+			var dialogClass = 'r2-dialog-' + dialogNumber;			
+
 			$scope.dialogOptions = {
 				autoOpen: $scope.autoOpen||false,
-			//	position: $scope.position ||'{ my: "center", at: "center", of: window }',
 				modal: $scope.modal || true,
 				resizable: $scope.resizable || false,
 				draggable: $scope.draggable || true,
 				dialogClass: dialogClass,
 				height: $scope.height ||'auto',
 				width: $scope.width ||'auto',
-				closeOnEscape: $scope.closeOnEscape || false,
-			//	initialFocus: $scope.initialFocus ||'firstElement',   //valid values are: 'firstElement', 'confirmButton', null, undefined, or a jQuery wrapped set (first element will be focused)
-				
+				closeOnEscape: $scope.closeOnEscape || false,						
 				close: function () {			
 					console.log('closing...');	
 				},
@@ -59,10 +49,8 @@ angular.module ('myApp.r2ciq-dialog-directive', [])
                         $(".ui-dialog-titlebar-close", ui.dialog).hide();
                     }
 				}
-			};
-			
-		   $scope.dialogOptions['buttons'] = [];
-
+			};			
+		    $scope.dialogOptions['buttons'] = [];
 	   },
 		link: function (scope, element, attrs, ctrl) {
            if(attrs.okButton) {				
@@ -99,9 +87,7 @@ angular.module ('myApp.r2ciq-dialog-directive', [])
                 if (val == 'true') {
                     console.log('open');
                     $(element).dialog("open");
-                } 
-                else 
-                {
+                }else  {
                     console.log('close');					
                     $(element).dialog("close");     					
                 }
@@ -111,8 +97,7 @@ angular.module ('myApp.r2ciq-dialog-directive', [])
                 console.log('observing title: val=' + val);
                 $(element).dialog("option", "title", val);                   
             });		   
-		}
-		
+		}		
 	}
 });
 

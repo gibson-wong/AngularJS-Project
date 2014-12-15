@@ -1,0 +1,7 @@
+[{instrument: {portfolio: "portfolio",
+										  asOfDate: "12/15/2014"},
+							 pricing: 	 {IM: "IM1",
+										  priceDate: "12/15/2014",
+										  reportCurrency: "USD"},
+							 scenario: 	 {scenSet: "My Scenario",
+										  baseline: "Baseline" }}]
