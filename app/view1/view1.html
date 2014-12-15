@@ -1,0 +1,44 @@
+<div ng-controller="View1Ctrl">
+	<button  ng-click="openDialog('isDeleteSimDialogOpen')" style="float:right; margin-right:20px;">Delete Simulation</button>
+	<button  ng-click="openDialog('isClearSimDialogOpen')" style="float:right; margin-right:20px;">Clear General Properties</button> 
+	
+	
+	<general-property general-prop="generalProperty" description="{{generalProperty.description}}"></general-property>
+	<hr>
+	<method-property></method-property>
+	<hr style="height:1px;border:none;color:#333;background-color:#333;" />
+	<p>Simulation Name: {{generalProperty.name}}</p>
+	<p>Simulation Method: {{generalProperty.method}}</p>
+	<p>Simulation Description: {{generalProperty.description}}</p>
+	<p>InstrumentSelectionPortfolio: {{methodProperty.instrument.portfolio}}
+		<br>
+	   Third Level Nesting: {{ thirdLvl}}
+	</p>
+	isDeleteSimDialogOpen: {{isDeleteSimDialogOpen}}
+	<r2-dialog 
+		title="Delete Simulation"                
+		open="{{isDeleteSimDialogOpen}}" 
+		is-open="isDeleteSimDialogOpen"
+		ok-button="OK"
+		ok-callback="onOkCallback"
+		cancel-button="Cancel"
+		cancel-callback="onCloseCallback"
+		enable-clos-button="{{enableClose}}"
+		width="300"
+		set-close= "setDeleteToFalse">
+		Message: ({{deleteSimDialogMessage}})
+	</r2dialog> 
+	
+	<r2-dialog 
+		title="Clear All Simulation"                
+		open="{{isClearSimDialogOpen}}" 
+		is-open="isClearSimDialogOpen"
+		ok-button="OK"
+		ok-callback="onOkClearCallback"
+		cancel-button="Cancel"
+		cancel-callback="onCancelClearCallback"
+		width="300"
+		enable-close-button="false">
+		Message: ({{clearSimDialogMessage}})
+	</r2dialog>
+</div>

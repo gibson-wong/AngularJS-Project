@@ -1,0 +1,44 @@
+/* app css stylesheet */
+
+.menu {
+  list-style: none;
+  border-bottom: 0.1em solid black;
+  margin-bottom: 2em;
+  padding: 0 0 0.5em;
+}
+
+.menu:before {
+  content: "[";
+}
+
+.menu:after {
+  content: "]";
+}
+
+.menu > li {
+  display: inline;
+}
+
+.menu > li:before {
+  content: "|";
+  padding-right: 0.3em;
+}
+
+.menu > li:nth-child(1):before {
+  content: "";
+  padding: 0;
+}
+
+.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-draggable {
+	border: 1px solid black;
+	padding: 5px 5px;
+	background-color: rgb(215, 215, 215);
+}
+
+.ui-dialog-titlebar.ui-widget-header.ui-corner-all.ui-helper-clearfix {
+border: 1px solid black;
+background-color: grey;
+}
+span#ui-dialog-title-1 {
+color: white;
+}
