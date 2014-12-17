@@ -3,11 +3,7 @@
 angular.module('myApp.version.version-directive', [])
 
 .directive('appVersion', ['version', function(version) {
-  function test (scope, element, attrs) {
-		element.text(version);
-	}
-  return {
-	restrict: 'E',
-	link: test
-	} 
+  return function(scope, elm, attrs) {
+    elm.text(version);
+  };
 }]);
